@@ -1,0 +1,110 @@
+#Gabriel Yuichi Suzaki, Turma A, 2 periodo
+#Esta funcao serve para deixar do formato necessario para o projeto, e diferente da Formatacao() pois ela retira o []que fica entre os conjuntos do cartesiano
+def FormatacaoCartes(s):
+    resilt = ''
+    for element in s:
+        resilt  +=   str(element)
+    remocao = resilt.replace('[', ' ,')
+    segRemocao = remocao.replace(']', '')
+    terRemocao = segRemocao.replace(" ", '')
+    final = terRemocao.replace(',', '', 1)
+    return final
+#esta serve para todas as outras e tem como função retirar os [] de fora e adicionar virgulas para o formato, é a mesma coisa do FormatacaoCastes, so que mais simples
+def Formatacao(s):
+    resilt = ' '
+    for element in s:
+        resilt += str(element)
+        virgula = ",".join(resilt)
+        terRemocao = virgula.replace(" ", '')
+        final = terRemocao.replace(',', '', 1)
+    return final
+#esta e a funcao responsavel pela uniao, ela separa as letras na virgula e depois adiciona ao reso(resolucao) se nao houver iguais
+def U(A,B):
+    reso = []
+    S = A.split(",")
+    s = B.split(",")
+    for elemento in S:
+        if elemento not in reso:
+            reso.append(elemento)
+    for elemento in s:
+        if elemento not in reso:
+            reso.append(elemento)
+    return reso
+#interseccao, ela faz a mesma coisa de separar e depois adiciona ao reso se existir a letra nos dois conjuntos
+def I(A,B):
+    reso = []
+    S = A.split(",")
+    s = B.split(",")
+    for elemento in S:
+        if elemento in s:
+            if elemento in S:
+                reso.append(elemento)
+    return reso
+#cartesiano, separa e depois faz a combinacao do x e y, depois adiciona ao reso no formato da variavel lata
+def C(A,B):
+    reso = []
+    S = A.split(",")
+    s = B.split(",")
+    for x in S:
+        for y in s:
+            lata = [(x, y)]
+            reso.append(lata)
+    return reso
+
+#a diferenca separa e depois adiciona somente se não houver iguais, precisei inverter o codigo pois so pegava as letras não repetidas do conjunto A
+def D(A,B):
+    reso = []
+    S = A.split(",")
+    s = B.split(",")
+    for elemento in S:
+        if elemento not in s:
+            reso.append(elemento)
+            if elemento not in S:
+                reso.append(elemento)
+    for elemento in s:
+        if elemento not in S:
+            reso.append(elemento)
+            if elemento not in s:
+                reso.append(elemento)
+    return reso
+#aqui é onde entra o txt, basta adiciona lo ao mesmo diretorio e dar o nome dele aqui
+#essa parte pega o txt, quebra ele e coloca em um array, assim podendo ser manipulado para o funcionamento do projeto
+palavras = []
+file = open('12.txt', "r")
+lines = file.read().splitlines()
+for line in lines:
+    palavras.extend(line.split())
+#esses contadores servem para buscar as posicoes dos itens a serem utilizados, cont = operadores, contEntrada1-2 = conjuntos de entrada
+cont = 1
+contEntrada1 = 2
+contEntrada2 = 3
+#essa parte define quantas vezes o codigo vai operar, consequentemente quantas linhas serao "printadas"
+infinito = 0
+while infinito == 0:
+    contador = int(palavras[0])
+    infinito = 1
+contador1 = 0
+while contador > contador1:
+    if contador > contador1:
+
+        selecao = str(palavras[cont])
+        cont += 3
+        entrada1 = str(palavras[contEntrada1])
+        contEntrada1 += 3
+        entrada2 = str(palavras[contEntrada2])
+        contEntrada2 += 3
+
+#aqui está a saida do codigo, ele reconhece a letra usada e depois coloca as entradas dentro da funcao responsavel por fazer o conjunto
+        if selecao == "U":
+            print("União: "+"conjunto 1 " + " {"+entrada1+"}, " + " conjunto 2 " + "{"+entrada2+"}. " + " Resultado: " + '{' + Formatacao(U(entrada1,entrada2)) + '}')
+            contador1 = contador1 + 1
+        if selecao == "I":
+            print("Intersecção: "+"conjunto 1 " + " {" + entrada1 + "}, " + " conjunto 2 " + "{" + entrada2 + "}. " + " Resultado: " + '{' + Formatacao(I(entrada1, entrada2)) + '}')
+            contador1 = contador1 + 1
+        if selecao == "C":
+            print("Cartesiano: "+"conjunto 1 " + " {" + entrada1 + "}, " + " conjunto 2 " + "{" + entrada2 + "}. " + " Resuldado: " + '{' + FormatacaoCartes(C(entrada1, entrada2)) + '}')
+            contador1 = contador1 + 1
+        if selecao == "D":
+            print("Diferença: "+" conjunto 1 " + " {" + entrada1 + "}, " + " conjunto 2 " + "{" + entrada2 + "}. " + " Resuldado: " + '{' + Formatacao(D(entrada1, entrada2)) + '}')
+            contador1 = contador1 + 1
+
